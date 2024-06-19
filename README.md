@@ -125,7 +125,7 @@ sudo apt-get install -y certbot python3-certbot-nginx
 
 #### 6. SSL証明書の取得
 ```bash
-sudo certbot --nginx -d app.revol-one.com
+sudo certbot --nginx -d xxxxx.xxxxxxx.com
 ```
 
 #### 7. Nginxの設定ファイルを作成
@@ -133,7 +133,7 @@ sudo certbot --nginx -d app.revol-one.com
 sudo tee /etc/nginx/sites-available/appsmith.conf <<'EOF'
 server {
     listen 80;
-    server_name app.revol-one.com;
+    server_name xxxxx.xxxxxxx.com;
 
     location / {
         return 301 https://$host$request_uri;
@@ -142,10 +142,10 @@ server {
 
 server {
     listen 443 ssl;
-    server_name app.revol-one.com;
+    server_name xxxxx.xxxxxxx.com;
 
-    ssl_certificate /etc/letsencrypt/live/app.revol-one.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/app.revol-one.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/xxxxx.xxxxxxx.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/xxxxx.xxxxxxx.com/privkey.pem;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
     ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
@@ -198,6 +198,5 @@ docker compose up -d
 ```
 
 #### 11. ブラウザでアクセス確認
-ブラウザで `https://app.revol-one.com` にアクセスし、Appsmithが正常に動作していることを確認します。
+ブラウザで `https://xxxxx.xxxxxxx.com` にアクセスし、Appsmithが正常に動作していることを確認します。
 
-これで、NginxおよびAppsmithのセットアップが完了です。問題が発生した場合は、各コマンドの出力を確認して原因を特定してください。
