@@ -45,7 +45,12 @@ sudo systemctl stop nginx
 sudo killall nginx || true
 ```
 
-#### 7. Nginxの設定ファイルを作成
+#### 7. SSL証明書の取得
+```bash
+sudo certbot --nginx -d app.revol-one.com
+```
+
+#### 8. Nginxの設定ファイルを作成
 ```bash
 sudo tee /etc/nginx/sites-available/appsmith.conf <<EOF
 server {
@@ -81,10 +86,6 @@ sudo ln -s /etc/nginx/sites-available/appsmith.conf /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
 ```
 
-#### 8. SSL証明書の取得
-```bash
-sudo certbot --nginx -d app.revol-one.com
-```
 
 #### 9. Nginxの再起動
 ```bash
