@@ -52,7 +52,7 @@ sudo certbot --nginx -d app.revol-one.com
 
 #### 8. Nginxの設定ファイルを作成
 ```bash
-sudo tee /etc/nginx/sites-available/appsmith.conf <<EOF
+sudo tee /etc/nginx/sites-available/appsmith.conf <<'EOF'
 server {
     listen 80;
     server_name app.revol-one.com;
@@ -80,6 +80,8 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
+EOF
+
 
 
 sudo ln -s /etc/nginx/sites-available/appsmith.conf /etc/nginx/sites-enabled/
