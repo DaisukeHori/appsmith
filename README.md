@@ -53,11 +53,7 @@ server {
     server_name app.revol-one.com;
 
     location / {
-        proxy_pass http://localhost:8080;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
+        return 301 https://$host$request_uri;
     }
 }
 
@@ -67,16 +63,19 @@ server {
 
     ssl_certificate /etc/letsencrypt/live/app.revol-one.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/app.revol-one.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
 
     location / {
         proxy_pass http://localhost:8080;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
-EOF
+
 
 sudo ln -s /etc/nginx/sites-available/appsmith.conf /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
